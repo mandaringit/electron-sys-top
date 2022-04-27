@@ -4,12 +4,17 @@ const cpu = osu.cpu
 const mem = osu.mem
 const os = osu.os
 
-
+let cpuOverload = 80
 // Run every 2 seconds
 setInterval(() => {
     // CPU Usage
     cpu.usage().then(info => {
         document.getElementById('cpu-usage').innerText = info + '%'
+
+        document.getElementById('cpu-progress').style.width = info + '%'
+
+        // Make Progress bar red if overload
+        document.getElementById('cpu-progress').style.background = info > cpuOverload ? 'red' : '#30c88b'
     })
 
     cpu.free().then(info => {
